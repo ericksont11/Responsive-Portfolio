@@ -396,6 +396,7 @@ img:hover {
     }
 
     header {
+        position: absolute;
         padding:0;
         background-color: antiquewhite;
         border-bottom: 1px gray solid;
