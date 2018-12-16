@@ -378,22 +378,17 @@ img:hover {
     #contact-box {
         width: 90%;
         margin-left:5%;
-        height: 750px;
+        height: 850px;
         border: 3px antiquewhite solid;
         left: auto;
-    }
-
-    h1 {
-        margin:0;
-    }
-
-    .container {
-        margin: 0;
-        padding: 0;
     }
     
     #portfolio-box {
         height: 1900px;
+    }
+
+    #contact-box {
+        height: 650px;
     }
 
     #index-content,
@@ -401,12 +396,16 @@ img:hover {
     #portfolio-content {
         width: 92%;
         margin: 3%;
-        height:710px;
+        height:810px;
         
     }
 
     #portfolio-content {
         height:1860px;
+    }
+
+    #contact-content{
+        height:610px;
     }
 
     header {
@@ -417,10 +416,16 @@ img:hover {
         border-bottom: 1px gray solid;
         width:100%
     }
+
     .container {
         margin: 0;
         padding: 0;
     }
+
+    h1 {
+        margin:0;
+    }
+    
     .tom {
         float:none;
         width: 100%;
@@ -435,10 +440,6 @@ img:hover {
         margin-right: 0;
     }
 
-    #portfolio-box {
-        height: 1900px;
-    }
-    
     .dog {
         height: 11%;
         width: 50%;
