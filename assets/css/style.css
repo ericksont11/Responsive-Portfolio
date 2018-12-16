@@ -378,7 +378,7 @@ img:hover {
     #contact-box {
         width: 90%;
         margin-left:5%;
-        height: 850px;
+        height: 550px;
         border: 3px antiquewhite solid;
         left: auto;
     }
@@ -387,25 +387,17 @@ img:hover {
         height: 1900px;
     }
 
-    #contact-box {
-        height: 650px;
-    }
-
     #index-content,
     #contact-content,
     #portfolio-content {
         width: 92%;
         margin: 3%;
-        height:810px;
+        height:510px;
         
     }
 
     #portfolio-content {
         height:1860px;
-    }
-
-    #contact-content{
-        height:610px;
     }
 
     header {
