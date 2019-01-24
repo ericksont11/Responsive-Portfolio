@@ -7,26 +7,27 @@ var enemyHealth;
 var enemyPower;
 var characterPower;
 var characterHealth;
-var snokeDefeated = false;
-var lukeDefeated = false;
-var yodaDefeated = false;
-var maceDefeated = false;
 var restart = false;
 var counter = 0;
-var a = 0;
-var b = 0;
-var c = 0;
-var d = 0;
+var positioned = false;
+var first;
+var enemyArray = ["Luke", "Snoke", "Mace", "Yoda"]
+var noneDefeated = true;
+var powerBoost;
+
+$("#attack").hide();
 
 $("#CharacterImage1").click(function () {
     if (CharacterSelect === false) {
         character = 1;
         characterPower = 10;
         characterHealth = 100;
+        powerBoost = 30;
     }
+    name = "Luke",
     enemy = 1;
-    characterPower = 10;
-    characterHealth = 100;
+    enemyPower = 10;
+    enemyHealth = 100;
     setBattle();
 });
 
@@ -35,9 +36,11 @@ $("#CharacterImage2").click(function () {
         character = 2;
         characterPower = 80;
         characterHealth = 70;
+        powerBoost = 20;
     }
+    name = "Snoke",
     enemy = 2; 
-    enemyPower = 80;
+    enemyPower = 15;
     enemyHealth = 70;
     setBattle();  
 });
@@ -46,12 +49,14 @@ $("#CharacterImage3").click(function () {
     if (CharacterSelect === false) {
         character = 3;
         characterPower = 20;
-        characterHealth = 105;
+        characterHealth = 150;
+        powerBoost = 5;
     }
+    name = "Mace",
     enemy = 3;
     enemyPower = 20;
-    enemyHealth = 150;
-    setBattle();        
+    enemyHealth = 105;
+    setBattle();      
 });
 
 $("#CharacterImage4").click(function () {
@@ -59,9 +64,11 @@ $("#CharacterImage4").click(function () {
         character = 4;
         characterPower = 70;
         characterHealth = 50;
+        powerBoost = characterPower  * 2;
     }
+    name = "Yoda",
     enemy = 4;
-    enemyPower = 70;
+    enemyPower = 30;
     enemyHealth = 50;
     setBattle();
 });
@@ -69,55 +76,69 @@ $("#CharacterImage4").click(function () {
 
 $("#attack").click(function () {
 for (y = 0; y < 5; y++){
-    if (enemypicked === y) {
+    if (enemy === y) {
         enemyHealth = enemyHealth - characterPower;
         characterHealth = characterHealth - enemyPower;
-        for (z = 0; z < 5; z++) {
-        if (character === z) {
-            characterPower = characterPower + 35;
-            if (enemyHealth <= 0 && maceDefeated === false && yodaDefeated === false) {
-                $("#CharacterOne").hide();
-                $("#CharacterTwo").hide();
-                $("#CharacterFour").show();
-                $("#CharacterThree").show();
-                $("#heading").html("Skywalker has been defeated! Choose your next foe!");
-                $("#CharacterThree").css("margin-left", "35vw");
-                lukeDefeated = true;
-                $("#attack").hide();
-            }
-            else if (enemyHealth <= 0 && yodaDefeated === true) {
-                $("#heading").html("Master Windu is up next! May the force be with you!");
-                $("#CharacterOne").hide();
-                $("#CharacterTwo").hide();
-                $("#CharacterFour").hide();
-                $("#CharacterThree").show();
-                $("#CharacterThree").css("margin-left", "42vw");
-                lukeDefeated = true;
-                $("#attack").hide();
+        for (z = 1; z < 5; z++) {
+            if (character === z) {
+                characterPower = characterPower + powerBoost;
+                if (enemyHealth <= 0) {
+                    $("#Character1").show();
+                    $("#Character2").show();
+                    $("#Character3").show();
+                    $("#Character4").show();
+                    $("#Character"+y).hide();
+                    $("#Character"+z).hide();
+                    $("#heading").html(name + " has been defeated! Choose your next foe!");
+                    $("#attack").hide();
+
+                    if (name === enemyArray[y-1]){
+                        $("#defeatedEnemies").show();
+                        $("#defeated"+enemyArray[y-1]).show();
+                        counter++;
+                        defeatedPosition();
+                        if (noneDefeated === true) {
+                            first = y;
+                            noneDefeated = false;
+                        }
+                    }
+                    console.log(counter)
+                    console.log(first)
+                    if (counter === 2) {
+                        $("#Character"+first).hide();
+                        $("#Character1").css("margin-left", "42vw");;
+                        $("#Character2").css("margin-left", "42vw");
+                        $("#Character3").css("margin-left", "42vw");
+                        $("#Character4").css("margin-left", "42vw");
+                    }
+
+                    if (counter === 3) {
+                        $("#Character"+first).hide();
+                        $("#Character1").css("margin-left", "42vw");;
+                        $("#Character2").css("margin-left", "42vw");
+                        $("#Character3").css("margin-left", "42vw");
+                        $("#Character4").css("margin-left", "42vw");
+                    }
+                    
+                }
+               
             }
 
-            else if (enemyHealth <= 0 && maceDefeated === true) {
-                $("#heading").html("Master Yoda is up next! May the force be with you!");
-                $("#CharacterOne").hide();
-                $("#CharacterTwo").hide();
-                $("#CharacterThree").hide();
-                $("#CharacterFour").show();
-                $("#CharacterFour").css("margin-left", "42vw");
-                lukeDefeated = true;
-                $("#attack").hide();
+            if (positioned === false && character !== z && z !== y && z !== first) {
+                $("#Character"+z).css("margin-left", "35vw");
+                positioned = true;
             }
         }
-        }
-        $("#enemypower").html("Power: " +enemyPower);
-        $("#enemyHealth").html("Health: " +enemyHealth);
+        $("#CharacterText" + enemy).empty();
+        $("#CharacterText" + enemy).append("<br><br><p id='enemyPower'>"+'Power: '+enemyPower+"</p>");
+        $("#CharacterText" + enemy).append("<br><p id='enemyHealth'>"+'Health: '+enemyHealth+"</p>");
         $("#characterHealth").html("Health: " +characterHealth);
         $("#characterPower").html("Power: " +characterPower);
     }
 }
-
-    if (characterHealth <=0) {
-        $("#heading").html("You have been Defeated! Try Again!");
-        newGame();
+    if (characterHealth <=0 && restart === false) {
+    $("#heading").html("You have been Defeated! Try Again!");
+    newGame();
     }
 
     if (restart === true) {
@@ -126,91 +147,12 @@ for (y = 0; y < 5; y++){
         restart = false;
     }
 
-    if (characterHealth !== 0 && yodaDefeated === true && lukeDefeated === true && snokeDefeated === true) {
+    if (characterHealth !== 0 && counter === 3) {
         $("#heading").html("You are the most powerful force user in the galaxy!");
-        $("#CharacterOne").hide();
-        $("#CharacterTwo").hide();
-        $("#CharacterThree").show();
-        $("#CharacterFour").hide();
-        $("#CharacterThreeText").hide();
-        $("#CharacterThree").css("margin-left", "42vw");
         $("#attack").show();
         restart = true;
         $("#attack").html("NEW GAME");
-
     }
-
-    if (characterHealth !== 0 && yodaDefeated === true && lukeDefeated === true && maceDefeated === true) {
-        $("#heading").html("You are the most powerful force user in the galaxy!");
-        $("#CharacterOne").hide();
-        $("#CharacterThree").hide();
-        $("#CharacterTwo").show();
-        $("#CharacterFour").hide();
-        $("#CharacterTwo").css("margin-left", "42vw");
-        $("#CharacterTwoText").hide();
-        restart = true;
-        $("#attack").show();
-        $("#attack").html("NEW GAME");
-
-
-    }
-
-    if (characterHealth !== 0 && snokeDefeated === true && lukeDefeated === true && maceDefeated === true) {
-        $("#heading").html("You are the most powerful force user in the galaxy!");
-        $("#CharacterOne").hide();
-        $("#CharacterThree").hide();
-        $("#CharacterFour").show();
-        $("#CharacterTwo").hide();
-        $("#CharacterFour").css("margin-left", "42vw");
-        $("#CharacterFourText").hide();
-        restart = true;
-        $("#attack").show();
-        $("#attack").html("NEW GAME");
-
-
-    }
-
-    if (characterHealth !== 0 && snokeDefeated === true && yodaDefeated === true && maceDefeated === true) {
-        $("#heading").html("You are the most powerful force user in the galaxy!");
-        $("#CharacterTwo").hide();
-        $("#CharacterThree").hide();
-        $("#CharacterOne").show();
-        $("#CharacterFour").hide();
-        $("#CharacterOne").css("margin-left", "42vw");
-        restart = true;
-        $("#attack").show();
-        $("#attack").html("NEW GAME");
-        $("#CharacterOnerText").hide();
-
-    }
-
-    if (lukeDefeated === true && a===0){
-        $("#defeatedEnemies").show();
-        $("#defeatedLuke").show();
-        defeatedPosition();
-        a = 1;
-    }
-
-    if (maceDefeated === true && b===0){
-        $("#defeatedEnemies").show();
-        $("#defeatedMace").show();
-        defeatedPosition();
-        b = 1;
-    }
-
-    if (yodaDefeated === true && c===0){
-        $("#defeatedEnemies").show();
-        $("#defeatedYoda").show();
-        defeatedPosition();
-        c = 1;
-    }
-
-    if (snokeDefeated === true && d===0){
-        $("#defeatedEnemies").show();
-        $("#defeatedSnoke").show();
-        defeatedPosition();
-        d = 1;
-    };
 });
 
 function newGame () {
@@ -231,30 +173,23 @@ function newGame () {
         $("#defeatedSnoke").hide();
         $("#defeatedYoda").hide();
         $("#defeatedEnemies").hide();
-        counter = 0;
-        a = 0;
-        b = 0;
-        c = 0;
-        d = 0;
         CharacterSelect = false;
         character = 0;
-        enemypicked = false;
-        enemyHealth = 100;
-        enemyPower = 100;
+        enemy = 0;
+        enemyHealth;
+        enemyPower;
         characterPower;
         characterHealth;
-        snokeDefeated = false;
-        lukeDefeated = false;
-        yodaDefeated = false;
-        maceDefeated = false;
+        restart = false;
+        counter = 0;
+        positioned = false;
+        first = 0;
+        enemyArray = ["Luke", "Snoke", "Mace", "Yoda"]
+        noneDefeated = true;
     }
 }
 
 function defeatedPosition () {
-    if (d === 0) {
-        counter = counter + 1;
-    }
-    d = 1;
     if (counter === 1){
         $("#defeatedEnemies").css("left", "42%");
     }
@@ -269,7 +204,6 @@ function defeatedPosition () {
 
 function setBattle () {
     if (CharacterSelect === false) {
-        $("#attack").show();
         $("#Character"+ character).hide();
         CharacterSelect = true;
         $("#heading").html("Choose your Opponent");
@@ -285,13 +219,14 @@ function setBattle () {
         }
     }
     else if (CharacterSelect === true) {
+        $("#attack").show();
         $("#Character1").hide();
         $("#Character2").hide();
         $("#Character3").hide();
         $("#Character4").hide();
         $("#heading").html("Attack your enemy!");
-        $("#CharacterText" + enemy).append("<br><br><p id='enemyPower'></p>");
-        $("#CharacterText" + enemy).append("<br><p id='enemyHealth'></p>");
+        $("#CharacterText" + enemy).append("<br><br><p id='enemyPower'>"+'Power: '+enemyPower+"</p>");
+        $("#CharacterText" + enemy).append("<br><p id='enemyHealth'>"+'Health: '+enemyHealth+"</p>");
         $("#CharacterText" + character).append("<br><br><p id='characterPower'></p>");
         $("#CharacterText" + character).append("<br><p id='characterHealth'></p>");
         $("#enemyHealth").html("Health: " +enemyHealth);
@@ -304,8 +239,5 @@ function setBattle () {
         $("#Character"+ character).show();
     }
 }
-
-
-
 
 });
