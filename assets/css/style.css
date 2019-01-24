@@ -123,26 +123,20 @@ p {
     float: right;
     padding-top: 25px;
     padding-bottom: 5px;
-
-    
 }
+
 .portfolio-link {
     float: right;
     margin-right:2%;
     margin-left:2%;
     padding-top: 25px;
-    padding-bottom: 5px;
-
-    
+    padding-bottom: 5px;  
 }
 
 .contact-link {
     float: right;
     padding-top: 25px;
-    padding-bottom: 5px;
-
-    
-    
+    padding-bottom: 5px;  
 }
 
 footer {

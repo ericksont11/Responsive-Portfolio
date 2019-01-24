@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+var start = 0;
+var newGif = 8;
 gifArray = ["Pac-man", "Metroid", "Mario", "Tetris", "Galaga", "Zelda", "Sims", "Starcraft", "Pokemon"]
 
 for (i=0; i < gifArray.length; i++){
@@ -12,6 +14,7 @@ var counter = -1;
 
 $(document).on("click","button", function loadGifs() {
     search = (this.id)
+    $("#imageSection").show()
     gifs();
 });
   
@@ -30,12 +33,14 @@ $("input").on("keydown",function logUserSearch(enter) {
 });
 
 function gifs() {
-    $.get('https://api.giphy.com/v1/gifs/search?q='+search+'&api_key=GTQIw05jFUMGro9NhKHEHj7aIoRufMbT&limit=8').then(function(response) {
-            for (i=0; i < response.data.length; i ++) {
+    $.get('https://api.giphy.com/v1/gifs/search?q='+search+'&api_key=GTQIw05jFUMGro9NhKHEHj7aIoRufMbT&limit='+newGif+'').then(function(response) {
+            for (i=start; i < newGif; i ++) {
                 counter++
-                var div = $("<div id='div"+i+"' >");
-                div.appendTo("#imageSection")
-                div.addClass("imageContainer");
+
+                    var div = $("<div id='div"+counter+"' >");
+                    div.appendTo("#imageSection")
+                    div.addClass("imageContainer");
+
                 var img = $("<img id='"+ counter +"', data-name='"+ i +"', data-type='"+ search +"', data-clicked='"+ false +"' >").on('click', function(){
                     var clicked = $(this).attr('data-clicked')
                     console.log(clicked)
@@ -53,11 +58,14 @@ function gifs() {
                     }
                 }) 
                 img.attr('src', response.data[i].images.downsized_still.url);
-                img.appendTo("#div"+i);
+                img.appendTo("#div"+counter);
                 var para = $("<span>");
                 para.html("Rating: " + response.data[i].rating)
-                para.appendTo("#div"+i)
+                para.appendTo("#div"+counter)
             }
+            divCreated = true;
+            start = newGif;
+            newGif= newGif + 8;
     });
 }
 
