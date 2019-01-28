@@ -113,11 +113,10 @@ for (y = 0; y < 5; y++){
                     }
 
                     if (counter === 3) {
-                        $("#Character"+first).hide();
-                        $("#Character1").css("margin-left", "42vw");;
-                        $("#Character2").css("margin-left", "42vw");
-                        $("#Character3").css("margin-left", "42vw");
-                        $("#Character4").css("margin-left", "42vw");
+                        $("#Character1").hide("margin-left", "42vw");;
+                        $("#Character2").hide("margin-left", "42vw");
+                        $("#Character3").hide("margin-left", "42vw");
+                        $("#Character4").hide("margin-left", "42vw");
                     }
                     
                 }
