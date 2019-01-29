@@ -14,67 +14,92 @@ var first;
 var enemyArray = ["Luke", "Snoke", "Mace", "Yoda"]
 var noneDefeated = true;
 var powerBoost;
+var attack = true
 
 $("#attack").hide();
 
+
+    
 $("#CharacterImage1").click(function () {
-    if (CharacterSelect === false) {
-        character = 1;
-        characterPower = 10;
-        characterHealth = 100;
-        powerBoost = 30;
+    if (attack === true) {
+        if (CharacterSelect === false) {
+            character = 1;
+            characterPower = 10;
+            characterHealth = 100;
+            powerBoost = 30;
+        }
+        else {
+        attack = false;
+        name = "Luke",
+        enemy = 1;
+        enemyPower = 10;
+        enemyHealth = 100;
+        }
+        setBattle();
     }
-    name = "Luke",
-    enemy = 1;
-    enemyPower = 10;
-    enemyHealth = 100;
-    setBattle();
 });
 
 $("#CharacterImage2").click(function () {
-    if (CharacterSelect === false) {
-        character = 2;
-        characterPower = 80;
-        characterHealth = 70;
-        powerBoost = 20;
+    if (attack === true) {
+        if (CharacterSelect === false) {
+            character = 2;
+            characterPower = 80;
+            characterHealth = 70;
+            powerBoost = 20;
+        }
+        else {
+        attack = false;
+        name = "Snoke",
+        enemy = 2; 
+        enemyPower = 15;
+        enemyHealth = 70;
+        }
+        setBattle();
     }
-    name = "Snoke",
-    enemy = 2; 
-    enemyPower = 15;
-    enemyHealth = 70;
-    setBattle();  
 });
 
 $("#CharacterImage3").click(function () {
-    if (CharacterSelect === false) {
-        character = 3;
-        characterPower = 20;
-        characterHealth = 150;
-        powerBoost = 5;
+    if (attack === true) {
+        if (CharacterSelect === false) {
+            character = 3;
+            characterPower = 20;
+            characterHealth = 150;
+            powerBoost = 5;
+        }
+        else {
+        attack = false;
+        name = "Mace",
+        enemy = 3;
+        enemyPower = 20;
+        enemyHealth = 105;
+        }
+        setBattle();
     }
-    name = "Mace",
-    enemy = 3;
-    enemyPower = 20;
-    enemyHealth = 105;
-    setBattle();      
 });
 
 $("#CharacterImage4").click(function () {
-    if (CharacterSelect === false) {
-        character = 4;
-        characterPower = 70;
-        characterHealth = 50;
-        powerBoost = characterPower  * 2;
+    if (attack === true) {
+        if (CharacterSelect === false) {
+            character = 4;
+            characterPower = 70;
+            characterHealth = 50;
+            powerBoost = characterPower  * 2;
+        }
+        else {
+        attack = false;
+        name = "Yoda",
+        enemy = 4;
+        enemyPower = 30;
+        enemyHealth = 50;
+        }
+        setBattle();  
     }
-    name = "Yoda",
-    enemy = 4;
-    enemyPower = 30;
-    enemyHealth = 50;
-    setBattle();
 });
 
 
+
 $("#attack").click(function () {
+console.log(attack)
 for (y = 0; y < 5; y++){
     if (enemy === y) {
         enemyHealth = enemyHealth - characterPower;
@@ -83,6 +108,7 @@ for (y = 0; y < 5; y++){
             if (character === z) {
                 characterPower = characterPower + powerBoost;
                 if (enemyHealth <= 0) {
+                    attack = true;
                     $("#Character1").show();
                     $("#Character2").show();
                     $("#Character3").show();
@@ -113,10 +139,15 @@ for (y = 0; y < 5; y++){
                     }
 
                     if (counter === 3) {
-                        $("#Character1").hide("margin-left", "42vw");;
-                        $("#Character2").hide("margin-left", "42vw");
-                        $("#Character3").hide("margin-left", "42vw");
-                        $("#Character4").hide("margin-left", "42vw");
+                        $("#Character1").css("margin-left", "42vw");;
+                        $("#Character2").css("margin-left", "42vw");
+                        $("#Character3").css("margin-left", "42vw");
+                        $("#Character4").css("margin-left", "42vw");
+                        $("#Character1").hide();
+                        $("#Character2").hide();
+                        $("#Character3").hide();
+                        $("#Character4").hide();
+                        $("#Character"+ z).show();
                     }
                     
                 }
@@ -185,6 +216,7 @@ function newGame () {
         first = 0;
         enemyArray = ["Luke", "Snoke", "Mace", "Yoda"]
         noneDefeated = true;
+        attack = true;
     }
 }
 
