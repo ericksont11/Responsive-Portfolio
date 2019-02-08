@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>Chat!</title>
+
+</head>
+
+<header class="bordered">
+
+    <div class="container">
+
+        <div class= "tom">
+
+            <h1 id="name">Tom Erickson</h1>
+
+        </div>
+
+        <div class="about">
+
+           <a href="index.html">About</a>
+
+        </div>
+
+        <div class="portfolio-link">
+
+        <a href="portfolio.html">Portfolio</a>
+
+        </div>
+
+        <div class="contact-link">
+
+            <a href="contact.html">Contact</a>
+
+        </div>
+
+    </div>
+
+</header>  
+
+<body>
+
+  <h1 id="title">Type in a username below to begin!</h1>
+  <input id="user" placeholder="Type a username here!">
+  <input id="comment" placeholder="Talk to your opponent here!">
+  <div id="chatcontainer">
+      <h2>Chatroom</h2>
+      <div id="chatbox"></div>
+  </div>
+
+  <div id="userChoice">
+    <img class="decision" id="paper"src="assets/images/paper.png"/>
+    <img class="decision" id="rock"src="assets/images/rock.png"/>
+    <img class="decision" id="scissors" src="assets/images/scissors.png"/>
+  </div>
+  <span id ="one-wins">WINS:</span>
+
+  <div id="opponentChoice">
+    <img class="decision" id="paper2"src="assets/images/paper.png"/>
+    <img class="decision" id="rock2"src="assets/images/rock.png"/>
+    <img class="decision" id="scissors2" src="assets/images/scissors.png"/>
+  </div>
+  <span id ="two-wins">WINS:</span>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
+
+  <script src="assets/javascript/chat.js"></script>
+
+  <link rel="stylesheet" href="assets/css/chat.css">
+
+</body>
+
+</html>
